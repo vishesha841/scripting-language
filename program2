@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        form {
+            max-width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Four-Digit Number Validation</h2>
+
+    <form id="numberForm">
+        <input type="text" id="numberInput" placeholder="Enter a 4-digit number" maxlength="4">
+        <button type="button" onclick="validateNumber()">Validate</button>
+        <div id="message" class="error"></div>
+    </form>
+
+    <script>
+        function validateNumber() {
+            const numberInput = document.getElementById("numberInput").value;
+            const message = document.getElementById("message");
+
+            // Clear previous messages
+            message.classList.remove("success", "error");
+            message.innerText = "";
+
+            // Check if input is a 4-digit number
+            if (!/^\d{4}$/.test(numberInput)) {
+                message.classList.add("error");
+                message.innerText = "Please enter exactly 4 digits.";
+                return;
+            }
+
+            // Check if the first digit is zero
+            if (numberInput[0] === '0') {
+                message.classList.add("error");
+                message.innerText = "The first digit cannot be zero.";
+                return;
+            }
+
+            // Check if digits are in ascending order
+            for (let i = 0; i < numberInput.length - 1; i++) {
+                if (numberInput[i] >= numberInput[i + 1]) {
+                    message.classList.add("error");
+                    message.innerText = "Digits must be in ascending order.";
+                    return;
+                }
+            }
+
+            // If all validations pass
+            message.classList.add("success");
+            message.innerText = "The number is valid!";
+        }
+    </script>
+
+</body>
+</html>
